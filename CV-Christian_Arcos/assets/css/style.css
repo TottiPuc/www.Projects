@@ -1,0 +1,95 @@
+body{
+    background-color: #000345; 
+}
+/*  =========================================CSS del header =========================================================*/
+
+header {
+    display: flex;
+    justify-content: center;
+    height: 125px;
+    background-color: black;
+    
+}
+
+.container{
+
+  display: flex;
+  justify-content: space-between; /* esto ubica a los lados las div "logo" y "menu" dejandolos con largo adaptable */ 
+  width: 990px;
+  
+ 
+}
+
+.logo {
+    padding-left: 20px;
+    
+}
+
+.menu{
+    display: flex;
+    align-items: center;
+    margin-right: 10px;
+    
+}
+
+nav ul,
+nav li {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+nav ul {      /*convierte los items de la lista en hijos del contenedor flex 'nav ul' */
+   display: flex;
+}
+
+nav a {
+    display: block;
+    padding: 15px;
+    text-decoration: none;
+    text-transform: uppercase;
+    color: #FFF;
+    font-family: arial;
+}
+
+nav .active a,
+nav a:hover{
+    background-color: #39aae1;
+    color: #FFF;
+}
+
+
+/*  ========================================= CSS de las sections =========================================================*/
+
+#banner{
+    display: flex;
+    justify-content: center;
+    background-image: url('../images/christian.JPG');
+    background-position: center;
+    background-size: cover;
+    height: 900px;
+}
+
+
+.one{
+    flex-direction: column;
+   
+    text-transform: uppercase;
+    font-family: 'Dancing Script';
+    color: #FFF;
+
+}
+
+.AI {
+    align-self: center;
+    margin: 20px;
+    
+   
+}
+
+.speech{
+    margin: 20px;
+    align-self: center;
+   
+}
+
