@@ -1,5 +1,5 @@
 body{
-    background-color: #000345; 
+    background-color: #5c5c5c; 
 }
 /*  =========================================CSS del header =========================================================*/
 
@@ -7,7 +7,8 @@ header {
     display: flex;
     justify-content: center;
     height: 125px;
-    background-color: black;
+    border-bottom: 5px solid #1e1e1e;
+    
     
 }
 
@@ -16,7 +17,7 @@ header {
   display: flex;
   justify-content: space-between; /* esto ubica a los lados las div "logo" y "menu" dejandolos con largo adaptable */ 
   width: 990px;
-  
+  background-color: black;
  
 }
 
@@ -32,18 +33,18 @@ header {
     
 }
 
-nav ul,
-nav li {
+.menu nav ul,
+.menu nav li {
     list-style: none;
     margin: 0;
     padding: 0;
 }
 
-nav ul {      /*convierte los items de la lista en hijos del contenedor flex 'nav ul' */
+.menu nav ul {      /*convierte los items de la lista en hijos del contenedor flex 'nav ul' */
    display: flex;
 }
 
-nav a {
+.menu nav a {
     display: block;
     padding: 15px;
     text-decoration: none;
@@ -52,14 +53,14 @@ nav a {
     font-family: arial;
 }
 
-nav .active a,
-nav a:hover{
+.menu nav .active a,
+.menu nav a:hover{
     background-color: #39aae1;
     color: #FFF;
 }
 
 
-/*  ========================================= CSS de las sections =========================================================*/
+/*  ========================================= CSS de las sections banner=========================================================*/
 
 #banner{
     display: flex;
@@ -71,9 +72,10 @@ nav a:hover{
 }
 
 
-.one{
+.container2{
+    display: flex;
+    justify-content: space-between;
     flex-direction: column;
-   
     text-transform: uppercase;
     font-family: 'Dancing Script';
     color: #FFF;
@@ -83,6 +85,7 @@ nav a:hover{
 .AI {
     align-self: center;
     margin: 20px;
+    padding:20px;
     
    
 }
@@ -93,3 +96,283 @@ nav a:hover{
    
 }
 
+/*  ========================================= CSS de las sections cuerpo izquierda=========================================================*/
+
+#main {
+    display: flex;
+    justify-content: center;
+    color: #FFF;
+    border-top: 5px solid #1e1e1e;
+
+}
+
+#main section {
+    flex:2;
+    background-color: #000;
+    margin:20px;
+
+
+}
+
+#main aside {
+    flex:1;
+    margin: 20px;
+    background-color: #000;
+}
+
+.widget {
+    border-radius: 5px;
+    margin-bottom: 20px;
+    background-color: #FFF
+}
+.widget_title{
+    padding-left: 20px;
+    padding-right: 20px;
+    margin-top: 10px;
+    margin-bottom: 20px;
+}
+
+.widget_title_text {
+    padding-top: 20px;
+    color:#000;
+    font-size: 28px;
+    font-weight: bold;
+    margin-bottom: 5px;
+
+}
+
+.widget_title_bar{
+    width: 100%;
+    height: 3px;
+    background-color: #39aae1;
+
+}
+
+.widget p{
+    padding: 10px 20px 20px;
+    color: #000;
+}
+
+
+/*  ========================================= CSS de las sections cuerpo derecha =========================================================*/
+
+aside .widget_ph0to {
+    margin-top: 10px;
+}
+
+aside .widget_ph0to img {
+    width: 100%;
+    height: 350px;;
+    border-radius: 50%;
+    padding-top: 20px;
+}
+
+.menu2{
+    display: flex;
+    justify-content: center;
+}
+
+.menu2 nav ul,
+.menu2 nav li {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+
+}
+
+.menu2 nav ul {    
+   padding-bottom: 20px;   
+   display: flex;
+   flex-direction: column;
+   align-items: center;
+
+}
+
+
+.menu2 nav a {
+     display: block;
+    padding: 15px;
+    text-decoration: none;
+    color: #FFF;
+    font-family: arial;
+    background-color: #000;
+    width: 200px;
+    text-align: center;
+    margin-top: 10px;
+}
+
+
+.menu2 nav a:hover{
+    background-color: #39aae1;
+    color: #FFF;
+}
+
+/*  ========================================= CSS About me =========================================================*/
+.degree{
+    display: flex;
+    flex-direction: column;
+}
+.educa {
+    display: flex;
+    width: 100%;
+    flex-direction: column;
+}
+
+
+.educa h3,
+.educa p{
+    color: black;
+    margin: 10px 20px ;
+
+    padding-left: 0;
+
+    
+}
+
+
+.subtitles{
+    color: black;
+    margin: 20px ;
+    padding-top: 10px;
+
+}
+
+
+article .personal_container
+{   
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    padding-top: 10px;
+}
+
+.personal_iz{
+    margin-left: 20px;
+
+}
+
+.personal_der{
+    margin-right: 20px;
+}
+
+.personal_iz ul,
+.personal_der ul{
+    margin: 0px;
+    padding: 0px;
+
+
+}
+
+.personal_iz ul li,
+.personal_der ul li{
+    list-style: none;
+    border-bottom: 2px dashed rgb(197, 187, 187);
+    margin-bottom: 10px;
+    color: #000;
+    font-weight: bold;
+    
+
+}
+
+
+/*  ========================================= CSS footer =========================================================*/
+
+footer {
+    display: flex;
+    justify-content: center;
+    background-color: #5c5c5c;
+    
+
+ 
+}
+
+.footer_menu{
+    display: flex;
+    flex: 1;
+    border-top: 5px solid #5f5e5e;
+}
+
+.fm_1, .fm_2, .fm_3{
+    flex:1;
+    color: #FFF;
+    padding: 20px;
+}
+
+.fm_1{
+    background-color: #525050;
+    
+} 
+
+.fm_2{
+    background-color: #464343;
+   
+} 
+
+.fm_3{
+    background-color: #1e1e1e;
+   
+}
+
+.footer_area{
+    display: flex;
+    color:#FFF;
+    justify-content: space-between;
+    font-size: 12px;
+}
+
+.footer_area_item {
+
+    display: flex;
+    padding: 20px;
+    text-align: center;
+}
+
+.footer_area_item img {
+    
+    margin-right: 10px;
+    width: 40px;
+    border-radius: 7px;
+    box-shadow: 4px 6px 6px #666;
+}
+
+.footer_area_item p {
+    margin-top: 20px;
+
+}
+
+.flexColumn {
+    flex-direction: column;
+}
+
+.fm_1 img {
+    width: 100px;
+    height: 80px;
+    border: 2px solid #FFF;
+}
+
+.fm_title{
+    font-size: 21px;
+    text-align: center;
+}
+
+.fm_desc{
+    font-size: 14px;
+    text-align: center;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+.footer_menu a {
+    margin-left: 35%;
+    border: 1px solid #FFF;
+    padding: 5px;
+    font-size: 13px;
+    text-decoration: none;
+    color: #FFF;
+    text-align: center;
+    background-color: #000;
+}
+.footer_menu a:hover{
+    background-color: #39aae1;
+    color: #000;
+}
