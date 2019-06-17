@@ -295,12 +295,17 @@ aside .widget_ph0to img {
 .educa p{
     color: black;
     margin: 10px 20px ;
-
+    text-align: justify;
     padding-left: 0;
+    padding-right: 0;
 
     
 }
 
+.abme p {
+    text-align: justify;
+    margin-bottom:  20px ;
+}
 
 .subtitles{
     color: black;
@@ -427,6 +432,7 @@ footer {
 
 .footer_area_item p {
     margin-top: 20px;
+    
 
 }
 
@@ -468,4 +474,148 @@ footer {
 }
 
 
+.menuMobile{
+    display: none;
+    width: 60px;
+    height: 60px;
+    margin-right: 20px;
+}
 
+.mm_line{
+    height: 5px;
+    background-color: #39aae1;
+}
+
+@media (min-width:1441px) and (max-width:4000px)  {
+    #banner{
+        height: 990px;
+    }
+}
+
+@media (min-width:1025px) and (max-width:1440px){
+    #banner{
+        height: 610px;
+    }
+
+    .container2 h1{
+        font-size: 22px;
+        margin: 0.67em 0;
+    }
+    .AI {
+        padding: 0px;
+    }
+}
+
+@media (min-width:769px) and (max-width:1024px){
+    #banner{
+        height: 464px;
+    }
+
+    .container2 h1{
+        font-size: 20px;
+        margin: 0.67em 0;
+    }
+    .AI {
+        padding: 0px;
+    }
+
+    .menu nav ul, .menu nav li {
+        font-size: 13px;}
+
+     article .personal_container {   
+        display: block;
+
+     }
+
+     .personal_der{
+         padding-left: 20px;
+
+     }
+
+     .personal_iz{
+        
+        padding-right: 20px;
+    }
+
+}
+
+@media (min-width:360px) and (max-width:768px){
+
+    #banner{
+        height: 368px;
+    }
+
+    .container2 h1{
+        font-size: 18px;
+        margin: 0.67em 0;
+    }
+    .AI {
+        padding: 0px;
+    }
+
+    .menu nav ul, .menu nav li {
+        font-size: 13px;}
+
+     article .personal_container {   
+        display: block;
+
+     }
+
+     .personal_der{
+         padding-left: 20px;
+     }
+
+     .personal_iz{
+        
+        padding-right: 20px;
+    }
+    .footer_menu{
+        flex-direction: column;
+    }
+
+    .footer_menu a{
+        margin-left: 45%;
+    }
+
+    .menu nav ul {
+        flex-direction: column;
+        display: none;
+        left: 0;
+        position: absolute;
+        width: 100%;
+        background-color: #000;
+        margin-top: 50px;
+    }
+
+    header{
+        height: auto;
+    }
+    .menuMobile{
+        display: flex;
+        flex-direction: column;
+        justify-content: space-around;
+    }
+
+    .photo{
+        display: flex;
+        align-items: center;
+    }
+
+    .widget_ph0to{
+        flex: 1;
+    }
+
+    .widget_Body{
+        flex: 1;
+        padding-top: 20px;
+    }
+
+ /* con esto aplicamos a todos los container menos al del header */
+    .container{
+        display: block;
+    }
+    header .container {
+        display: flex;
+    }
+
+}

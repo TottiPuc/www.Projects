@@ -7,6 +7,17 @@
     <link rel="stylesheet" type="text/css" href="css/style.css">
     <link rel="stylesheet" href="normalize_css/normalize.css">
     <link href="https://fonts.googleapis.com/css?family=Dancing+Script&display=swap" rel="stylesheet">  <!-- link de fuentes de google-->
+    <script type="text/JavaScript">
+    window.onload = function(){
+	document.querySelector(".menuMobile").addEventListener("click", function(){
+		if(document.querySelector(".menu nav ul").style.display == 'flex') {
+			document.querySelector(".menu nav ul").style.display = 'none';
+		} else {
+			document.querySelector(".menu nav ul").style.display = 'flex';
+		}
+	});
+};
+    </script>
 </head>
 <body>
      <!-- cabecera de la pagina -->
@@ -17,6 +28,11 @@
             </div>
             <div class="menu">
                 <nav>
+                    <div class="menuMobile">
+                        <div class="mm_line"></div>
+                        <div class="mm_line"></div>
+                        <div class="mm_line"></div>
+                    </div>
                     <ul>
                         <li class="active"> <a href="./"> HOME </a></li>
                         <li> <a href="#aboutme"> About me </a></li>
@@ -48,7 +64,7 @@
     <section id="main">
             <div class="container">
                 <aside>
-                        <div class="widget">
+                        <div class="widget photo">
                                 <div class="widget_ph0to">
                                     <img src="images/christian_ar.jpg" alt="photo" >
                                 </div>
@@ -162,10 +178,12 @@
                                         </div>
 
                                     </div>
+                                    <div class="abme">
                                     <p> Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
                                          Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure 
                                          dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. 
                                         Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+                                    </div>
                                 </article>
                             </div>
                         </div>
@@ -178,7 +196,7 @@
                                         <article class="Degree">
                                             <div class="educa">
                                                 <div> <h3>University 1</h3></div>
-                                                <div>
+                                                <div >
                                                 <p> 
                                                         sed odio morbi quis commodo odio. Vitae turpis massa sed elementum tempus egestas sed sed risus. 
                                                         Purus gravida quis blandit turpis cursus in hac habitasse. Feugiat nibh sed pulvinar proin gravida hendrerit lectus a. 
