@@ -103,7 +103,7 @@ function verificar(saldo) {
 
 function cambiarLimiteDeExtraccion() {
     var limite = parseInt(prompt("Digite el nuevo limite de extracción"));
-    if (!isNaN(limite)){
+    if (!isNaN(limite) && limite > 0){
         limiteExtraccion = limite;
         alert("su nuevo limite de extracción es: $" + limiteExtraccion);
         actualizarLimiteEnPantalla();}
@@ -137,68 +137,60 @@ function depositarDinero() {
     }
 }
 
-function pagarServicio() {
-    var opcion = parseInt(prompt("Ingresar el numero correspondiente con el servicio que desa pagar: \n 1. Luz \n 2. Agua \n 3. Telefono \n 4. Internet \n 0. para salir" ))
-    switch (opcion) {
-        case 1:
-           var op = parseInt(prompt("el valor a pagar del servicio de luz es: $ " + Luz + "\n presione \n 1. si desea realizar el pago \n 0. si quieres regresar al menu principal"));
-            if (op === 1) {
-                var pago = verificar(Luz);
-                if (pago != 0) {
-                    alert("transaccion exitosa, has pagado el servicio de Luz. \n Dinero descontado $ " + Luz + "\n saldo Actual $ " + pago)
-                    actualizarSaldoEnPantalla();
-                       
-                }
-            }
-            else {
-                alert("regresar al menu principal")
-            }
-            break;
-        case 2:
-            var op = parseInt(prompt("el valor a pagar del servicio de Agua es: $ " + Agua + "\n presione \n 1. si desea realizar el pago \n 0. si quieres regresar al menu principal"));
-            if (op === 1) {
-                var pago = verificar(Agua);
-                if (pago != 0) {
-                    alert("transaccion exitosa, has pagado el servicio de Agua. \n Dinero descontado $ " + Agua + "\n saldo Actual $ " + pago)
-                    actualizarSaldoEnPantalla();  
-                }
-            }
-            else {
-                alert("regresar al menu principal")
-            }
-            break;
-        case 3:
-            var op = parseInt(prompt("el valor a pagar del servicio de telefono es: $ " + Telefono + "\n presione \n 1. si desea realizar el pago \n 0. si quieres regresar al menu principal"));
-            if (op === 1) {
-                var pago = verificar(Telefono);
-                if (pago != 0) {
-                    alert("transaccion exitosa, has pagado el servicio de Telefono. \n Dinero descontado $ " + Telefono + "\n saldo Actual $ " + pago)
-                    actualizarSaldoEnPantalla();  
-                }
-            }
-            else {
-                alert("regresar al menu principal")
-            }
-            break;
-        case 4:
-            var op = parseInt(prompt("el valor a pagar del servicio de Internet es: $ " + Internet + "\n presione \n 1. si desea realizar el pago \n 0. si quieres regresar al menu principal"));
-            if (op === 1) {
-                var pago = verificar(Internet);
-                if (pago != 0) {
-                    alert("transaccion exitosa, has pagado el servicio de Internet. \n Dinero descontado $ " + Internet + "\n saldo Actual $ " + pago)
-                    actualizarSaldoEnPantalla();   
-                }
-            }
-            else {
-                alert("regresar al menu principal")
-            }
-            break;
-        default:
-            alert("operacion invalida")
-            break;
-    }
-
+    // Devuelve si se tiene al menor el valor indicado en la cuenta
+    function haySaldoDisponible(valor) {
+        var respuesta = true;
+        
+        if (parseInt(valor) > saldoCuenta) {
+                respuesta = false;
+        }
+        
+        return respuesta;
 }
+
+// descuenta saldo
+function descontarSaldo(valor) {
+        saldoCuenta = saldoCuenta - parseInt(valor);
+}
+
+function pagarServicio() {
+        var saldoAnterior = saldoCuenta;
+        var servicioAPagar = prompt(
+                "Ingrese el número que corresponda con el servicio que querés pagar: \n1 - Agua \n2 - Luz \n3 - Internet \n4 - Teléfono"
+        );
+        
+        switch (servicioAPagar) {
+        case "1":
+                montoAPagar = Agua;
+                servicio = 'Agua';
+                break;
+        case "2":
+                montoAPagar = Luz;
+                servicio = 'Luz';
+                break;
+        case "3":
+                montoAPagar = Internet;
+                servicio = 'Internet';
+                break;
+        case "4":
+                montoAPagar = Telefono;
+                servicio = 'Telefono';
+                break;
+        default:
+                alert("El servicio ingresado es inválido");
+                break;
+        }
+        
+        if (haySaldoDisponible(montoAPagar)) {
+                descontarSaldo(montoAPagar);
+                actualizarSaldoEnPantalla();
+
+                alert("Has pagado el servicio: "+servicio+".\nSaldo anterior: "+saldoAnterior+"\nDinero descontado: "+montoAPagar+"\nSaldo actual: "+saldoCuenta+"\n");
+        } else {
+                alert("No hay saldo disponible en tu cuenta para pagar el servicio.");
+        }
+}
+
 
 function transferirDinero() {
         var monto = parseInt(prompt("Ingrese el valor a transferir"));
