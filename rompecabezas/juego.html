@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>BMO Arcade</title>
+    <link rel="stylesheet" href="css/juego.css">
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+  </head>
+  <body>
+    <!-- Parte izquierda del tablero intrucciones y objetivos-->
+    <div class="col-40">
+       <div id="titulo">
+          <div class="texto-centrado">
+        <h2 class="titulos">Rompecabezas</h2>
+        <p>Recuerdas los viejos tiempos cuando te rompias la cabeza intentando armar la figura?. Pues regresa a tu infancia e intenta armar el rompecabezas ahora digital.
+        </p>
+      </div>
+      </div>
+      <div id="instrucciones">
+          <div class="texto-centrado">
+          <h2 class="titulos">Instrucciones</h2>
+        <ul id="lista-instrucciones">
+        </ul>
+        </div>
+      </div>
+      <div id="objetivo">
+        <div class="texto-centrado">
+            <h2 class="titulos">Objetivo</h2>
+            <img src="images/picachu.JPG" alt="final" width="200px" height="200px">
+
+        </div>
+      </div>
+      <div id="ultimo-mov">
+          <div class="texto-centrado">
+          <h3 class="titulos">Último Movimiento</h3>
+        <div id="flecha" class="texto-centrado">
+          
+        </div>
+      </div>
+      </div>
+     <!-- Parte derecha cuadro principal del juego--> 
+    </div>
+    <div class="col-60">
+      <div id="juego">
+        
+        <div id="pieza1">
+          <img class="imagen" src="images/1.jpg" alt="imagen1">
+        </div>
+        <div id="pieza2">
+            <img class="imagen" src="images/2.jpg" alt="imagen2">
+        </div>
+        <div id="pieza3">
+            <img class="imagen" src="images/3.jpg" alt="imagen3">
+        </div>
+        <div id="pieza4">
+            <img class="imagen" src="images/4.jpg" alt="imagen4">
+        </div>
+        <div id="pieza5">
+            <img class="imagen" src="images/5.jpg" alt="imagen5">
+        </div>
+        <div id="pieza6">
+            <img class="imagen" src="images/6.jpg" alt="imagen6">
+        </div>
+        <div id="pieza7">
+            <img class="imagen" src="images/7.jpg" alt="imagen7">
+        </div>
+        <div id="pieza8">
+            <img class="imagen" src="images/8.jpg" alt="imagen8">
+        </div>
+        <div id="pieza9"></div>
+
+
+      </div>
+    </div>
+    <div id="footer">
+        <div class="texto-centrado">
+            <p> Christian-Arcos.com - All rights reserved &copy 2019 </p> 
+    </div>
+  </div>
+    <script src="js/juego.js"></script>
+    
+  </body>
+</html>
