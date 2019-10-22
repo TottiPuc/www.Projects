@@ -36,7 +36,7 @@ colorPersonalizado.addEventListener('change',
     })
 );
 
-
+// funcion que crea la paleta de colores
 function colores(nombreCol) {
   var nombreCol=nombreColores
   for (let i = 0; i < nombreCol.length; i++) {
@@ -45,7 +45,22 @@ function colores(nombreCol) {
     square.style.backgroundColor=color;
     square.className = "color-paleta";
     paleta.appendChild(square);
-    
   }
-  
 }
+
+
+// funcion para crear la grilla de pixeles para colorear
+function pixeles() {
+  for (let i = 0; i < 1751; i++) {
+    let pix = document.createElement("div");
+    pix.className = "grilla-pixeles";
+    grilla.appendChild(pix);    
+  }
+}
+
+function iniciar() {
+  colores(nombreColores);
+  pixeles();
+}
+
+iniciar();
