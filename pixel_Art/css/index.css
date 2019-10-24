@@ -92,6 +92,7 @@ input[type="color"]::-webkit-color-swatch {
 
 .custom {
   color: white;
+  font-size: 18px;
 }
 
 .cursor-personalizado {
@@ -146,6 +147,7 @@ img {
   border: 1px solid white;
   margin: 0;
   position: relative;
+  
 
 }
 #indicador-de-color:after {
@@ -160,6 +162,7 @@ img {
 }
 #indicador-de-color-mensaje {
   color: white;
+  font-size: 18px;
 }
 
 #result {

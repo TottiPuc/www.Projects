@@ -35,6 +35,8 @@ colorPersonalizado.addEventListener('change',
     // Se guarda el color de la rueda en colorActual
     colorActual = colorPersonalizado.value;
     indicadorColor.style.backgroundColor = colorActual;
+      //funcionalidad de agregar el nombre del color al texto
+  document.getElementById("texto").innerHTML = colorActual;
     })
 );
 
@@ -65,6 +67,12 @@ $("#invisible").click(function(){
   cargarSuperheroe(invisible)
 })
 
+//Evento para guardar las imagenes en el computador
+
+$("#guardar").click(function () {
+  guardarPixelArt()
+})
+
 
 //############### FUNCIONES AUXILIARES ############################
 
@@ -74,6 +82,8 @@ verificar()
 // funcion que permite elegir el color de la paleta de colores
 function elegirColor(e) {
   indicadorColor.style.backgroundColor = e.target.style.backgroundColor 
+  //funcionalidad de agregar el nombre del color al texto
+  document.getElementById("texto").innerHTML = e.target.style.backgroundColor
 }
 
 //funcion de verificacion e implementacion del modo de pintar 
