@@ -97,6 +97,7 @@ function verificar() {
     console.log("pintar haciendo click");
   } else{
     $elementoIndividual.mouseover(colorear)
+    $elementoTotal.css({'cursor': 'url(https://i.ibb.co/TRrNbyD/cursor.png),auto'});
     console.log("pintar con click sostenido");
   }
 
