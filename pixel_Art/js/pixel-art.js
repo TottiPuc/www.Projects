@@ -46,14 +46,37 @@ colorPersonalizado.addEventListener('change',
 $("#paleta").click(elegirColor);
 
 //$("#grilla-pixeles").mouseover(colorear)
-var paintMode = true;
-verificar()
+
+// evento para cargar super heroes desde imagenes
+
+$("#batman").click(function(){
+  cargarSuperheroe(batman)
+})
+
+$("#wonder").click(function(){
+  cargarSuperheroe(wonder)
+})
+
+$("#flash").click(function(){
+  cargarSuperheroe(flash)
+})
+
+$("#invisible").click(function(){
+  cargarSuperheroe(invisible)
+})
+
+
 //############### FUNCIONES AUXILIARES ############################
 
+var paintMode = true;
+verificar()
+
+// funcion que permite elegir el color de la paleta de colores
 function elegirColor(e) {
   indicadorColor.style.backgroundColor = e.target.style.backgroundColor 
 }
 
+//funcion de verificacion e implementacion del modo de pintar 
 function verificar() {
   var $elementoTotal = $("#grilla-pixeles");
   var $elementoIndividual = $("#grilla-pixeles div");
@@ -67,30 +90,21 @@ function verificar() {
     console.log("pintar con click sostenido");
   }
 
-  $elementoTotal.dblclick(invertirModoDePintar)
+  $elementoTotal.dblclick(invertirModoDePintar) // evento doble click para cambiar de modo de pintar
 }
 
-
+// funcion que permite colorear con el color elegido de la paleta de colores
 function colorear(e) {
   e.target.style.backgroundColor = indicadorColor.style.backgroundColor;
   }
 
-function soltar(e) {
-  var mouse = "off";
-  e.target.style.backgroundColor = "red";
-  console.log(mouse);
-}
-
-function invertirModoDePintar() {
+// funcion que identifica que modo de pintar se ha seleccionado si simple o sostenido
+  function invertirModoDePintar() {
   console.log(paintMode)
   paintMode = !paintMode
   console.log("El modo de pintar es " + paintMode)
   verificar()
 }
-
-
-
-
 
 // funcion que crea la paleta de colores
 function colores() {
@@ -102,7 +116,6 @@ function colores() {
     paleta.appendChild(square);
   }
 }
-
 
 // funcion para crear la grilla de pixeles para colorear
 function pixeles() {
