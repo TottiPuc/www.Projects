@@ -23,24 +23,79 @@ var nombreColores = ['White', 'LightYellow',
 var paleta = document.getElementById("paleta");
 var grilla = document.getElementById("grilla-pixeles")
 
+iniciar();
+
 // Variable para guardar el elemento 'color-personalizado'
 // Es decir, el que se elige con la rueda de color.
 var colorPersonalizado = document.getElementById('color-personalizado');
+var indicadorColor = document.getElementById("indicador-de-color");
 
 colorPersonalizado.addEventListener('change', 
   (function() {
     // Se guarda el color de la rueda en colorActual
     colorActual = colorPersonalizado.value;
-    // Completar para que cambie el indicador-de-color al colorActual
-
+    indicadorColor.style.backgroundColor = colorActual;
     })
 );
 
+
+//################### EVENTOS #####################################
+
+// eventos sobre paleta de colores que cambia el color seleccionado
+
+$("#paleta").click(elegirColor);
+
+//$("#grilla-pixeles").mouseover(colorear)
+var paintMode = true;
+verificar()
+//############### FUNCIONES AUXILIARES ############################
+
+function elegirColor(e) {
+  indicadorColor.style.backgroundColor = e.target.style.backgroundColor 
+}
+
+function verificar() {
+  var $elementoTotal = $("#grilla-pixeles");
+  var $elementoIndividual = $("#grilla-pixeles div");
+  $elementoTotal.unbind();
+  $elementoIndividual.unbind();
+  if (paintMode) {
+    $elementoTotal.click(colorear)
+    console.log("pintar haciendo click");
+  } else{
+    $elementoIndividual.mouseover(colorear)
+    console.log("pintar con click sostenido");
+  }
+
+  $elementoTotal.dblclick(invertirModoDePintar)
+}
+
+
+function colorear(e) {
+  e.target.style.backgroundColor = indicadorColor.style.backgroundColor;
+  }
+
+function soltar(e) {
+  var mouse = "off";
+  e.target.style.backgroundColor = "red";
+  console.log(mouse);
+}
+
+function invertirModoDePintar() {
+  console.log(paintMode)
+  paintMode = !paintMode
+  console.log("El modo de pintar es " + paintMode)
+  verificar()
+}
+
+
+
+
+
 // funcion que crea la paleta de colores
-function colores(nombreCol) {
-  var nombreCol=nombreColores
-  for (let i = 0; i < nombreCol.length; i++) {
-    let color = nombreCol[i]; 
+function colores() {
+  for (let i = 0; i < nombreColores.length; i++) {
+    let color = nombreColores[i]; 
     let square = document.createElement('div')
     square.style.backgroundColor=color;
     square.className = "color-paleta";
@@ -63,4 +118,3 @@ function iniciar() {
   pixeles();
 }
 
-iniciar();
