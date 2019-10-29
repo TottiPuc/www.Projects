@@ -76,17 +76,17 @@ $("#guardar").click(function () {
 
 //############### FUNCIONES AUXILIARES ############################
 
-var paintMode = true;
-verificar()
-
+var starTime, endTime
 // funcion que permite elegir el color de la paleta de colores
 function elegirColor(e) {
   indicadorColor.style.backgroundColor = e.target.style.backgroundColor 
   //funcionalidad de agregar el nombre del color al texto
   document.getElementById("texto").innerHTML = e.target.style.backgroundColor
-}
-
+}/*
 //funcion de verificacion e implementacion del modo de pintar 
+var paintMode = true;
+verificar()
+
 function verificar() {
   var $elementoTotal = $("#grilla-pixeles");
   var $elementoIndividual = $("#grilla-pixeles div");
@@ -100,8 +100,47 @@ function verificar() {
     $elementoTotal.css({'cursor': 'url(https://i.ibb.co/TRrNbyD/cursor.png),auto'});
     console.log("pintar con click sostenido");
   }
+ $elementoTotal.dblclick(invertirModoDePintar) // evento doble click para cambiar de modo de pintar
+}
+*/
 
-  $elementoTotal.dblclick(invertirModoDePintar) // evento doble click para cambiar de modo de pintar
+//funcion para pintar haciendo click sostenido o clickeando cada elemento
+var paintMode = true;
+verificar()
+
+function verificar() {
+  var $elementoTotal = $("#grilla-pixeles");
+  var $elementoIndividual = $("#grilla-pixeles div");
+  $elementoTotal.unbind();
+  $elementoIndividual.unbind();
+  if (paintMode) {
+    $elementoTotal.click(colorear)
+    console.log("pintar haciendo click");
+  } else{
+    $elementoTotal.mouseover(colorear)
+    
+    console.log("pintar con click sostenido");
+  }
+ $elementoTotal.mousedown(presionar) // evento doble click para cambiar de modo de pintar
+ $elementoTotal.mouseup(soltar)
+}
+
+
+function presionar() {
+  paintMode = false;
+  console.log("El modo de pintar es con click sostenido")
+  verificar()
+}
+
+//funcion para soltar click
+function soltar() {
+  paintMode = true;
+  console.log("el click se solto")
+  endTime = new Date();
+  var timeDiff = endTime - starTime; //en ms
+  console.log("Se hizo clic durante:\n" + timeDiff);
+  verificar()
+  
 }
 
 // funcion que permite colorear con el color elegido de la paleta de colores
@@ -109,6 +148,7 @@ function colorear(e) {
   e.target.style.backgroundColor = indicadorColor.style.backgroundColor;
   }
 
+ /* 
 // funcion que identifica que modo de pintar se ha seleccionado si simple o sostenido
   function invertirModoDePintar() {
   console.log(paintMode)
@@ -116,6 +156,8 @@ function colorear(e) {
   console.log("El modo de pintar es " + paintMode)
   verificar()
 }
+*/
+ 
 
 // funcion que crea la paleta de colores
 function colores() {
