@@ -35,11 +35,10 @@ var Jugador = {
         this.alto= 30;
       }
   },
-  perderVidas:function(numVidas) {
-    this.vidas = this.vidas - numVidas;
+  perderVidas:function(cantVidas) {
+    this.vidas = this.vidas - cantVidas;
     console.log("me restan "+ this.vidas) 
   }
-  // Hay que agregar lo que falte al jugador: movimientos, perdida de vidas,
-  // y todo lo que haga falta para que cumpla con sus responsabilidades
+
 
 }

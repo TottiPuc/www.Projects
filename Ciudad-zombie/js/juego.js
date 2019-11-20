@@ -18,9 +18,22 @@ var Juego = {
   ganador: false,
 
   obstaculosCarretera: [
-    /*Aca se van a agregar los obstaculos visibles. Tenemos una valla horizontal
-    de ejemplo, pero podras agregar muchos mas. */
-    new Obstaculo('imagenes/valla_horizontal.png', 70, 430, 30, 30, 1)
+    /*Aca se van a agregar los obstaculos visibles. */
+    new Obstaculo('imagenes/valla_horizontal.png', 70, 430, 30, 30, 1),
+    new Obstaculo('imagenes/valla_horizontal.png', 100, 430, 30, 30, 1),
+    new Obstaculo('imagenes/valla_horizontal.png', 130, 430, 30, 30, 1),
+    new Obstaculo('imagenes/valla_vertical.png', 170, 460, 30, 30, 1),
+    new Obstaculo('imagenes/bache.png', 280, 390, 30, 30, 1),
+    new Obstaculo('imagenes/bache.png', 350, 470, 30, 30, 1),
+    new Obstaculo('imagenes/bache.png', 350, 490, 30, 30, 1),
+    new Obstaculo('imagenes/auto_verde_abajo.png', 850, 490, 15, 30, 1),
+    new Obstaculo('imagenes/valla_horizontal.png', 760, 430, 30, 30, 1),
+    new Obstaculo('imagenes/auto_verde_derecha.png', 450, 390, 30, 15, 1),
+    new Obstaculo('imagenes/auto_verde_derecha.png', 590, 90, 30, 15, 1),
+    new Obstaculo('imagenes/valla_vertical.png', 310, 240, 30, 30, 1),
+    new Obstaculo('imagenes/valla_horizontal.png', 760, 240, 30, 30, 1),
+    new Obstaculo('imagenes/valla_horizontal.png', 854, 240, 30, 30, 1),
+    new Obstaculo('imagenes/bache.png', 280, 140, 20, 20, 1)
 
   ],
   /* Estos son los bordes con los que se puede chocar, por ejemplo, la vereda.
@@ -44,7 +57,7 @@ var Juego = {
   ],
   // Los enemigos se agregaran en este arreglo.
   enemigos: [
-
+   
   ]
 
 }
@@ -128,8 +141,6 @@ Juego.capturarMovimiento = function(tecla) {
 
   // Si se puede mover hacia esa posicion hay que hacer efectivo este movimiento
   if (this.chequearColisiones(movX + this.jugador.x, movY + this.jugador.y)) {
-    /* Aca tiene que estar la logica para mover al jugador invocando alguno
-    de sus metodos  */
 
     this.jugador.mover(movX,movY);
   }
@@ -198,7 +209,12 @@ Juego.chequearColisiones = function(x, y) {
   this.obstaculos().forEach(function(obstaculo) {
     if (this.intersecan(obstaculo, this.jugador, x, y)) {
 
-      /*COMPLETAR, obstaculo debe chocar al jugador*/
+      /*obstaculo debe chocar al jugador y perder vidas*/
+
+      this.jugador.perderVidas(obstaculo.potencia);
+
+      // anular la potencia de los obstaculos
+      obstaculo.quitarPotencia();
 
       puedeMoverse = false
     }
