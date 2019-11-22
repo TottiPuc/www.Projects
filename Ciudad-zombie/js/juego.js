@@ -56,9 +56,27 @@ var Juego = {
     new Obstaculo('', 887, 79, 56, 480, 2)
   ],
   // Los enemigos se agregaran en este arreglo.
+    //Zombie caminante: sprite, x, y, ancho, alto, velocidad, rangoMov
   enemigos: [
-   
+    new ZombieCaminante('imagenes/zombie1.png',170, 530, 10, 10,-1.9,{desdeX: 0, hastaX: 900, desdeY: 0, hastaY: 850}),
+    new ZombieCaminante('imagenes/zombie2.png',90, 330, 10, 10,1,{desdeX: 0, hastaX: 900, desdeY: 0, hastaY: 850}),
+    new ZombieCaminante('imagenes/zombie2.png',310, 450, 10, 10,0.5,{desdeX: 0, hastaX: 900, desdeY: 0, hastaY: 850}),
+    new ZombieCaminante('imagenes/zombie3.png',590, 120, 10, 10,-3,{desdeX: 0, hastaX: 900, desdeY: 0, hastaY: 880}),
+    new ZombieCaminante('imagenes/zombie4.png',415, 270, 10, 10,0.8,{desdeX: 0, hastaX: 900, desdeY: 0, hastaY: 850}),
+    new ZombieCaminante('imagenes/zombie2.png',130, 430, 10, 10,-2.1,{desdeX: 0, hastaX: 900, desdeY: 0, hastaY: 850}),
+    new ZombieCaminante('imagenes/zombie3.png',290, 130, 10, 10,-2.3,{desdeX: 0, hastaX: 900, desdeY: 0, hastaY: 850}),
+    new ZombieCaminante('imagenes/zombie4.png',800, 530, 10, 10,1.4,{desdeX: 0, hastaX: 900, desdeY: 0, hastaY: 850}),
+    new ZombieCaminante('imagenes/zombie1.png',730,110, 10, 10,2.4,{desdeX: 0, hastaX: 900, desdeY: 0, hastaY: 850}),
+    new ZombieCaminante('imagenes/zombie1.png',600,220, 10, 10,2.4,{desdeX: 0, hastaX: 900, desdeY: 0, hastaY: 850}),
+
+    //Zombie conductor: sprite, x, y, ancho, alto, velocidad,rangoMov,dirMovimiento
+    new ZombieCaminante('imagenes/tren_vertical.png',644, 0, 30, 90,-9,{desdeX: -0, hastaX: 1300, desdeY: -400, hastaY: 1250},"Vertical"),
+    new ZombieCaminante('imagenes/tren_vertical.png',678, 200, 30, 90,-12,{desdeX: 0, hastaX: 1300, desdeY: -400, hastaY: 1250},"Vertical"),
+    new ZombieCaminante('imagenes/tren_horizontal.png',400, 322, 90, 30,-15,{desdeX: -400, hastaX: 1300, desdeY: -400, hastaY: 1250},"Horizontal")
+
   ]
+   
+  
 
 }
 
@@ -154,7 +172,9 @@ Juego.dibujar = function() {
   //se dibuja al jugador
   Dibujante.dibujarImagen(Jugador.sprite, Jugador.x, Jugador.y, Jugador.ancho, Jugador.alto)
 
-  /* Completar */
+  //Dibujo rectangulo de llegada
+  Dibujante.dibujarRectangulo('white',759,480,128,25);
+  Dibujante.dibujarRectangulo('black',759,487,128,10);
 
   // Se recorren los obstaculos de la carretera pintandolos
   this.obstaculosCarretera.forEach(function(obstaculo) {
@@ -163,7 +183,8 @@ Juego.dibujar = function() {
 
   // Se recorren los enemigos pintandolos
   this.enemigos.forEach(function(enemigo) {
-    /* Completar */
+    Dibujante.dibujarEntidad(enemigo)
+    
   });
 
   // El dibujante dibuja las vidas del jugador
