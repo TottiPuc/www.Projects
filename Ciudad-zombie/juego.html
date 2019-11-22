@@ -4,6 +4,7 @@
 <!-- <meta name="viewport" content="width=device-width, initial-scale=1.0"/> -->
 <!-- Incluir los archivos donde este guardado el estilo en formato css -->
 <link rel="stylesheet" href="css/juego.css">
+<script src='js/jquery-3.1.1.js'> </script>
 <!-- Incluir los archivos donde este el codigo Javascript del juego -->
 <script src='js/resources.js'> </script>
 <script src='js/jugador.js'> </script>
@@ -14,7 +15,9 @@
 <script src='js/zombie_conductor.js'></script>
 <script src='js/juego.js'> </script>
 </head>
-
+<body>
+<button  onClick="Juego.Instrucciones()"  id="continuar"> *--click para leer las instrucciones--* </button>
 <input type="button" value="< Clic para volver a Jugar  >" onClick="window.location.reload()" class="boton-recargar" id="reiniciar">
+<div class="flash"></div>
 </body>
 </html>

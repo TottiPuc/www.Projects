@@ -14,6 +14,7 @@ var Juego = {
   altoCanvas: 577,
   jugador: Jugador,
   vidasInicial: Jugador.vidas,
+  estadoInstrucciones:0,
   // Indica si el jugador gano
   ganador: false,
 
@@ -90,6 +91,9 @@ Juego.iniciarRecursos = function() {
     'imagenes/mensaje_gameover.png',
     'imagenes/Splash.png',
     'imagenes/bache.png',
+    'imagenes/inicio.png',
+    'imagenes/ganador.png',
+    'imagenes/instrucciones.png',
     'imagenes/tren_horizontal.png',
     'imagenes/tren_vertical.png',
     'imagenes/valla_horizontal.png',
@@ -119,8 +123,34 @@ Juego.comenzar = function() {
   /* El bucle principal del juego se llamara continuamente para actualizar
   los movimientos y el pintado de la pantalla. Sera el encargado de calcular los
   ataques, colisiones, etc*/
-  this.buclePrincipal();
+  this.Instrucciones();
+  //this.buclePrincipal();
 };
+
+//Función que muestra todas las instrucciones y al final (estado 4) inicia el buclePrincipal
+Juego.Instrucciones=function() {
+
+  switch (this.estadoInstrucciones) {
+    case 0:
+        document.getElementById('continuar').style.visibility = 'visible';  
+        Dibujante.dibujarImagen('imagenes/inicio.png', 0, 0, 961, 572);
+      break;
+    case 1:
+        document.getElementById('continuar').innerHTML= 'Continuar'; 
+        Dibujante.dibujarImagen('imagenes/instrucciones.png', 0, 0, 961, 572);
+      break;
+    case 2:
+        document.getElementById('continuar').style.visibility = 'hidden';
+        
+        this.buclePrincipal();
+      break;
+    default:
+      break;
+  }
+  this.estadoInstrucciones++
+}
+
+
 
 Juego.buclePrincipal = function() {
 
@@ -214,11 +244,12 @@ se ven las colisiones con los obstaculos. En este caso sera con los zombies. */
 Juego.calcularAtaques = function() {
   this.enemigos.forEach(function(enemigo) {
     if (this.intersecan(enemigo, this.jugador, this.jugador.x, this.jugador.y)) {
-      /* Si el enemigo colisiona debe empezar su ataque
-      COMPLETAR */
+      // Si el enemigo colisiona debe empezar su ataque
+      enemigo.comenzarAtaque(this.jugador);
+      console.log("atacando")
     } else {
-      /* Sino, debe dejar de atacar
-      COMPLETAR */
+      // Sino, debe dejar de atacar
+      enemigo.dejarDeAtacar()
     }
   }, this);
 };
@@ -266,16 +297,40 @@ Juego.dibujarFondo = function() {
   if (this.terminoJuego()) {
     Dibujante.dibujarImagen('imagenes/mensaje_gameover.png', 0, 5, this.anchoCanvas, this.altoCanvas);
     document.getElementById('reiniciar').style.visibility = 'visible';
+
+    //funcion para detener el juego
+    Juego.moverEnemigos = function () {
+      //NADA
+    }
+   // this.ocultarfondo();
   }
 
   // Si se gano el juego hay que mostrar el mensaje de ganoJuego de fondo
   else if (this.ganoJuego()) {
     Dibujante.dibujarImagen('imagenes/Splash.png', 190, 113, 500, 203);
+    Dibujante.dibujarImagen('imagenes/ganador.png', 235, 350, 471, 89);
     document.getElementById('reiniciar').style.visibility = 'visible';
+    this.ocultarfondo();
+    //inmunidad a perder vidas
+    Jugador.perderVidas = function () {
+      //NADA
+    }
   } else {
     Dibujante.dibujarImagen('imagenes/mapa.png', 0, 5, this.anchoCanvas, this.altoCanvas);
   }
 };
+
+Juego.ocultarfondo=function () {
+  this.obstaculosCarretera.forEach(function (obstaculo) {
+    obstaculo.ocultar();
+  })
+  
+  this.enemigos.forEach(function (enemigo) {
+    enemigo.ocultar();
+    })
+  
+
+}
 
 Juego.terminoJuego = function() {
   return this.jugador.vidas <= 0;
@@ -299,4 +354,19 @@ document.addEventListener('keydown', function(e) {
   };
 
   Juego.capturarMovimiento(allowedKeys[e.keyCode]);
+});
+
+
+
+//parpadea la pantalla cuando ya no tiene vida
+function flash(){
+  $(".flash")
+  .show()  
+  .animate({opacity: 0.5}, 10) 
+  .fadeOut(5)
+  .css({'opacity': 1});
+}
+
+$(document).ready(function() {    
+  $(".flash").hide();  
 });

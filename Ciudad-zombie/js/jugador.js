@@ -10,6 +10,8 @@ var Jugador = {
   alto: 30,
   velocidad: 10,
   vidas: 5,
+  vidaInicial:5,
+
   mover:function(movX,movY){
     this.x = this.x + movX;
     this.y = this.y +movY;
@@ -36,6 +38,7 @@ var Jugador = {
       }
   },
   perderVidas:function(cantVidas) {
+    console.log("inicio con " + this.vidaInicial + "vidas")
     this.vidas = this.vidas - cantVidas;
     console.log("me restan "+ this.vidas) 
   }
