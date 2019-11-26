@@ -302,7 +302,14 @@ Juego.dibujarFondo = function() {
     Juego.moverEnemigos = function () {
       //NADA
     }
-   // this.ocultarfondo();
+   
+    Juego.dibujar = function() {
+      Dibujante.borrarAreaDeJuego();
+      this.dibujarFondo();
+      
+      if(this.terminoJuego() || this.ganoJuego()) return; // se finaliza la ejecución
+      // .. dibujo de entidades
+}
   }
 
   // Si se gano el juego hay que mostrar el mensaje de ganoJuego de fondo
@@ -315,6 +322,15 @@ Juego.dibujarFondo = function() {
     Jugador.perderVidas = function () {
       //NADA
     }
+
+    Juego.dibujar = function() {
+      Dibujante.borrarAreaDeJuego();
+      this.dibujarFondo();
+      
+      if(this.terminoJuego() || this.ganoJuego()) return; // se finaliza la ejecución
+      // .. dibujo de entidades
+}
+
   } else {
     Dibujante.dibujarImagen('imagenes/mapa.png', 0, 5, this.anchoCanvas, this.altoCanvas);
   }
