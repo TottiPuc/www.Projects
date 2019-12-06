@@ -5,6 +5,9 @@ var Aplicacion = function(listado) {
         this.registrarEventos();
 
     }
+    var arrayReservas =[];
+    var codigoDescuentos =["DES200","DES1","DES15"];
+
     //Esta función le asigna al botón "Buscar" la función filtrarRestaurantes()
 Aplicacion.prototype.registrarEventos = function() {
     $(".buscar").click(this.filtrarRestaurantes.bind(this));
@@ -104,6 +107,12 @@ Aplicacion.prototype.calificarRestaurant = function(restaurant) {
             self.listado.calificarRestaurant(restaurant.id, nuevaCalificacion);
             var restaurantActualizar = $("#" + restaurant.id);
             restaurantActualizar.find(".puntuacion").html(restaurant.obtenerPuntuacion());
+            swal({
+                title: "Enviado!",
+                text: "Gracias por calificar",
+                icon: "success",
+                button: "Continuar",
+              });
         } else {
             swal({
                 title: "Error",
