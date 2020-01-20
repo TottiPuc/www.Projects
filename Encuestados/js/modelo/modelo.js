@@ -9,6 +9,10 @@ var Modelo = function() {
   this.preguntaAgregada = new Evento(this);
   this.preguntaBorrada = new Evento(this);
   this.preguntaeditada = new Evento(this);
+  this.respuestaVotada = new Evento(this);
+  this.borrarTodo = new Evento(this);
+  
+  
 };
 
 Modelo.prototype = {
@@ -41,6 +45,12 @@ Modelo.prototype = {
     this.guardar();
     this.preguntaBorrada.notificar();
     console.log(this.preguntas)
+  },
+
+  borrarPreguntasAll: function() {
+    this.preguntas = [];
+    this.guardar();
+    this.borrarTodo.notificar();
   },
 
   editarPregunta: function (idPregunta,nuevoTexto,nuevaRespuesta) {
@@ -82,7 +92,18 @@ Modelo.prototype = {
     }
 },
 
-  // aditional functions
+  sumarVoto: function(idPregunta,respuestaTexto) {
+    //Busco la pregunta en la que esta la respuesta elegida
+    var preguntaParaSumar = this.buscarPreguntaPorId(idPregunta);
+    //Busco la respuesta elegida dentro de la pregunta
+    var respuestaParaSumar = this.buscarRespuestaPorTexto(preguntaParaSumar,respuestaTexto);
+    //Le sumo a la cantidad de la respuesta +1
+    respuestaParaSumar.cantidad +=1;
+    this.guardar();
+    this.respuestaVotada.notificar();
+  },
+
+    // aditional functions
 buscarPreguntaporId:function (idPregunta) {
   return this.preguntas.find(function (pregunta) {
     return pregunta.id== idPregunta

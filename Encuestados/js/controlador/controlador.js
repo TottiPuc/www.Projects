@@ -14,6 +14,10 @@ Controlador.prototype = {
     if (idPregunta >0) this.modelo.borrarPregunta(idPregunta);
   },
 
+  borrarPreguntasAll: function() {
+    this.modelo.borrarPreguntasAll();
+  },
+
   editarPregunta: function(idPregunta,nuevoTexto,nuevaRespuesta){
     this.modelo.editarPregunta(idPregunta,nuevoTexto,nuevaRespuesta);
   },
@@ -59,5 +63,9 @@ Controlador.prototype = {
     $("#containerRespuestas").find("img").click(function() {
       $(this).parent().remove();
     });
+  },
+
+  agregarVotos:function(idPregunta,respuestaSeleccionada){
+    this.modelo.sumarVoto(idPregunta,respuestaSeleccionada);
   }
 };

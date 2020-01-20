@@ -19,6 +19,10 @@ var VistaAdministrador = function(modelo, controlador, elementos) {
   this.modelo.preguntaeditada.suscribir(function() {
     contexto.reconstruirLista();
   });
+
+  this.modelo.borrarTodo.suscribir(function() {
+    contexto.reconstruirLista();
+  });
 };
 
 
@@ -81,6 +85,9 @@ VistaAdministrador.prototype = {
       contexto.controlador.borrarPregunta(id);
     });
 
+
+
+      //Cargo el MODAL
     e.botonEditarPregunta.click(function () {
       var id = parseInt($('.list-group-item.active').attr('id')) || 0;
       if (id==0) {
@@ -126,6 +133,9 @@ VistaAdministrador.prototype = {
         contexto.controlador.asignarEventoAutoborradoRespModal();
     });
     
+    e.borrarTodo.click(function() {
+      contexto.controlador.borrarPreguntasAll();
+    });
   },
 
   
