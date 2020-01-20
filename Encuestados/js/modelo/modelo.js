@@ -8,6 +8,7 @@ var Modelo = function() {
   //inicializacion de eventos
   this.preguntaAgregada = new Evento(this);
   this.preguntaBorrada = new Evento(this);
+  this.preguntaeditada = new Evento(this);
 };
 
 Modelo.prototype = {
@@ -34,13 +35,66 @@ Modelo.prototype = {
   },
 
   borrarPregunta: function (idPregunta) {
+    
     this.preguntas = _.filter(this.preguntas, function(preg) { return !(preg.id==idPregunta); });
-    console.log("entro modelo")
+    
     this.guardar();
     this.preguntaBorrada.notificar();
+    console.log(this.preguntas)
+  },
+
+  editarPregunta: function (idPregunta,nuevoTexto,nuevaRespuesta) {
+    var buscarPregunta= this.buscarPreguntaporId(idPregunta);
+    //cambiar el encabezado
+    buscarPregunta.textoPregunta=nuevoTexto;
+        
+    //Filtro el array viejo a travez de nuevaRespuesta
+    var RespuestasAnterioresFiltradas = buscarPregunta.cantidadPorRespuesta.filter(function(resp) {
+      return nuevaRespuesta.includes(resp.textoRespuesta);
+    });
+
+      //nuevaRespuesta es un array que contiene las nuevas respuestas
+      //Recorro las respuestas nuevas, agregando las no existentes en el array de respuestas existentes
+      for (let index = 0; index < nuevaRespuesta.length; index++) {
+        var respNew = nuevaRespuesta[index];
+        //si el array de respuestas no incluye a la nueva respuesta, hay que agregarla al final
+        if (!(RespuestasAnterioresFiltradas.some(respAnt => respAnt.textoRespuesta === respNew))){
+          //La agrego al final con cant 0
+          RespuestasAnterioresFiltradas.push({textoRespuesta: respNew, cantidad: 0});
+        }
+      }
+      //CAMBIO LAS RESPUESTAS
+      buscarPregunta.cantidadPorRespuesta = RespuestasAnterioresFiltradas;
+    //Cambio las respuestas. respuestas es un array de esta forma:
+    // [{textoRespuesta: "asd", cantidad: 0},{textoRespuesta: "qwe", cantidad: 2}]
+    this.guardar();
+    this.preguntaeditada.notificar();
   },
 
   //se guardan las preguntas
   guardar: function(){
+    localStorage.setItem('preguntas',JSON.stringify(this.preguntas));
+  },
+
+  precargarLocal:function(){
+    if (localStorage.getItem('preguntas')!==null){
+      this.preguntas = JSON.parse(localStorage.getItem('preguntas'));
+    }
+},
+
+  // aditional functions
+buscarPreguntaporId:function (idPregunta) {
+  return this.preguntas.find(function (pregunta) {
+    return pregunta.id== idPregunta
+  })
+},
+
+  //Devuelve la respuesta {texto:xxx ,cantidad:xxx} de una determinada pregunta que sea igual al texto pasado por param
+  buscarRespuestaPorTexto: function(pregunta,respuestaTexto){
+    return pregunta.cantidadPorRespuesta.find(function(respuesta) {
+            return respuesta.textoRespuesta == respuestaTexto;
+    });
   },
 };
+
+

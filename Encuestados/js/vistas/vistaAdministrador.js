@@ -15,6 +15,10 @@ var VistaAdministrador = function(modelo, controlador, elementos) {
   this.modelo.preguntaBorrada.suscribir(function() {
     contexto.reconstruirLista();
   });
+
+  this.modelo.preguntaeditada.suscribir(function() {
+    contexto.reconstruirLista();
+  });
 };
 
 
@@ -75,11 +79,64 @@ VistaAdministrador.prototype = {
     e.botonBorrarPregunta.click(function () {
       var id = parseInt($('.list-group-item.active').attr('id'));
       contexto.controlador.borrarPregunta(id);
-    })
-    //asociar el resto de los botones a eventos
+    });
+
+    e.botonEditarPregunta.click(function () {
+      var id = parseInt($('.list-group-item.active').attr('id')) || 0;
+      if (id==0) {
+        return false
+      }
+      contexto.controlador.llenarModal(id);
+      $('#editModal').modal('show');
+    });
+
+     //Cargo edito la pregunta al tocar confirmar en MODAL
+     e.confirmarEdit.click(function() {
+      //respuestasNuevas es un array que contiene las nuevas respuestas
+      var idPregunta = parseInt($('.list-group-item.active').attr('id'));
+      var nuevoTexto = $('#pregunta-text').val();
+      var respuestasNuevas = [];
+
+//*********** SOLUCIONAR! Me aseguro que no va a haber un id de el largo del array +15
+        var idRespuestaMaximo = $("#containerRespuestas div").length + 15; 
+        //Ciclo que llena las respuestas en el array
+        for (let index = 0; index < idRespuestaMaximo; index++) {
+         var respuestaAPushear = $("input[idrespuesta='"+index + "']").val();
+            if (respuestaAPushear!==undefined) {
+                respuestasNuevas.push(respuestaAPushear);
+            }
+        };
+
+      contexto.controlador.editarPregunta(idPregunta,nuevoTexto,respuestasNuevas);
+      $('#editModal').modal('hide');
+    });
+    
+    //Agregar pregunta en MODAL
+    e.agregarRespModalButton.click(function(event) {
+      var idPregunta = $(event.target).parent().find("#pregunta-text").attr("idpregunta");
+      var idRespuesta= $(event.target).parent().find("#containerRespuestas").children().length;
+      
+      //Preparo la linea de DIV + INPUT
+      var newRowInput = '<div idPregunta="' + idPregunta + '"><input type="text" class="form-control" value="" idRespuesta ="' + idRespuesta +'" idPregunta="' + idPregunta + '"></input><img class="modalDelete" src="img/deleteButton.png" width="5" alt="No Image"></img></div>';
+      
+      //Agrego el nuevo input al DOM
+      $(event.target).parent().find("#containerRespuestas").append(newRowInput);
+
+      //Asigno eventos a botones de autoborrado al modal de Edit
+        contexto.controlador.asignarEventoAutoborradoRespModal();
+    });
+    
   },
+
+  
 
   limpiarFormulario: function(){
     $('.form-group.answer.has-feedback.has-success').remove();
   },
+
+  precargarLocal:function(){
+    this.controlador.precargarLocal();
+  },
+
+
 };
