@@ -32,6 +32,7 @@ Modelo.prototype = {
   agregarPregunta: function(nombre, respuestas) {
     var id = this.obtenerUltimoId();
     id++;
+    //console.log(id)
     var nuevaPregunta = {'textoPregunta': nombre, 'id': id, 'cantidadPorRespuesta': respuestas};
     this.preguntas.push(nuevaPregunta);
     this.guardar();
@@ -44,7 +45,7 @@ Modelo.prototype = {
     
     this.guardar();
     this.preguntaBorrada.notificar();
-    console.log(this.preguntas)
+    //console.log(this.preguntas)
   },
 
   borrarPreguntasAll: function() {
@@ -54,7 +55,7 @@ Modelo.prototype = {
   },
 
   editarPregunta: function (idPregunta,nuevoTexto,nuevaRespuesta) {
-    var buscarPregunta= this.buscarPreguntaporId(idPregunta);
+    var buscarPregunta= this.buscarPreguntaPorId(idPregunta);
     //cambiar el encabezado
     buscarPregunta.textoPregunta=nuevoTexto;
         
@@ -81,21 +82,11 @@ Modelo.prototype = {
     this.preguntaeditada.notificar();
   },
 
-  //se guardan las preguntas
-  guardar: function(){
-    localStorage.setItem('preguntas',JSON.stringify(this.preguntas));
-  },
-
-  precargarLocal:function(){
-    if (localStorage.getItem('preguntas')!==null){
-      this.preguntas = JSON.parse(localStorage.getItem('preguntas'));
-    }
-},
-
   sumarVoto: function(idPregunta,respuestaTexto) {
     //Busco la pregunta en la que esta la respuesta elegida
     var preguntaParaSumar = this.buscarPreguntaPorId(idPregunta);
     //Busco la respuesta elegida dentro de la pregunta
+    console.log("esto es", idPregunta, respuestaTexto)
     var respuestaParaSumar = this.buscarRespuestaPorTexto(preguntaParaSumar,respuestaTexto);
     //Le sumo a la cantidad de la respuesta +1
     respuestaParaSumar.cantidad +=1;
@@ -104,7 +95,7 @@ Modelo.prototype = {
   },
 
     // aditional functions
-buscarPreguntaporId:function (idPregunta) {
+buscarPreguntaPorId:function (idPregunta) {
   return this.preguntas.find(function (pregunta) {
     return pregunta.id== idPregunta
   })
@@ -115,6 +106,17 @@ buscarPreguntaporId:function (idPregunta) {
     return pregunta.cantidadPorRespuesta.find(function(respuesta) {
             return respuesta.textoRespuesta == respuestaTexto;
     });
+  },
+
+    //se guardan las preguntas
+    guardar: function(){
+      localStorage.setItem('preguntas',JSON.stringify(this.preguntas));
+    },
+  
+    precargarLocal:function(){
+      if (localStorage.getItem('preguntas')!==null){
+        this.preguntas = JSON.parse(localStorage.getItem('preguntas'));
+      }
   },
 };
 

@@ -30,7 +30,7 @@ Controlador.prototype = {
     //Limpio las respuestas existentes
     $('#containerRespuestas').empty();
     //Esta es la pregunta según el ID seleccionado como "active"
-    var preguntaEditar = this.modelo.buscarPreguntaporId(idPregunta);
+    var preguntaEditar = this.modelo.buscarPreguntaPorId(idPregunta);
 
     //Este es el texto de la pregunta. Lo ingreso en el modal:
     var cuadroDePregunta = document.getElementById("pregunta-text");

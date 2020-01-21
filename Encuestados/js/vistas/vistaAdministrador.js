@@ -30,13 +30,14 @@ VistaAdministrador.prototype = {
   //lista
   inicializar: function() {
     //llamar a los metodos para reconstruir la lista, configurar botones y validar formularios
-    validacionDeFormulario();
+    
+    this.precargarLocal()
     this.reconstruirLista();
     this.configuracionDeBotones();
+    validacionDeFormulario();
   },
 
   construirElementoPregunta: function(pregunta){
-    //var contexto = this;
         //asignar a nuevoitem un elemento li con clase "list-group-item", id "pregunta.id" y texto "pregunta.textoPregunta"
     var nuevoItem =$('<li/>',{
       'html' : pregunta.textoPregunta,
@@ -47,7 +48,9 @@ VistaAdministrador.prototype = {
     var interiorItem = $('.d-flex');
     var titulo = interiorItem.find('h5');
     titulo.text(pregunta.textoPregunta);
-    interiorItem.find('small').text(pregunta.cantidadPorRespuesta.map(function(resp){
+    var respu = interiorItem.find('small');
+    console.log(pregunta.cantidadPorRespuesta)
+    respu.text(pregunta.cantidadPorRespuesta.map(function(resp){
       return " " + resp.textoRespuesta;
     }));
     nuevoItem.html($('.d-flex').html());
@@ -72,7 +75,8 @@ VistaAdministrador.prototype = {
       var value = e.pregunta.val();
       var respuestas = [];
 
-      $('[name="option[]"]').each(function() {
+      //$('[name="option[]"]').each(function()  con esta se genera siempre una respuesta vacia 
+      $('div:not(#optionTemplate)>input[name="option[]"]').each(function(){
         var respuesta = {'textoRespuesta': $(this).val(),'cantidad':0}
         respuestas.push(respuesta)
       })
