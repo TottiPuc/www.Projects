@@ -209,6 +209,14 @@ input.line-input {
 	padding: 0 0 6px 0;
 }
 
+.credits{
+	display: block;
+	margin: auto;
+	padding:10px;
+	font-size:14px;
+	text-align: center;
+	font-style: italic;
+}
 
 /*////////// RESPONSIVE ////////////*/
 
