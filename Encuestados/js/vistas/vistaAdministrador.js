@@ -108,7 +108,6 @@ VistaAdministrador.prototype = {
       var nuevoTexto = $('#pregunta-text').val();
       var respuestasNuevas = [];
 
-//*********** SOLUCIONAR! Me aseguro que no va a haber un id de el largo del array +15
         var idRespuestaMaximo = $("#containerRespuestas div").length + 15; 
         //Ciclo que llena las respuestas en el array
         for (let index = 0; index < idRespuestaMaximo; index++) {
