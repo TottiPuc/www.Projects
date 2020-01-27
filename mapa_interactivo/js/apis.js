@@ -25,7 +25,9 @@ xhttp.onreadystatechange = function () {
     un centro igual a la variable posicionCentral. */
     mapa = new google.maps.Map(document.getElementById("map"),{
       center: centro,
+      scrollwheel: true,
       zoom :6
+      
     });
   
   geocodificadorModulo.inicializar()
