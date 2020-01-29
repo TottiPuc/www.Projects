@@ -6,7 +6,7 @@ streetViewModulo = (function () {
         en una posición y lo muestra en la página. */
         panorama = new google.maps.StreetViewPanorama(
           document.getElementById('pano'),{
-            position:mapa.fenway,
+            position:mapa.center,
             pov: {
               heading: 34,
               pitch: 10

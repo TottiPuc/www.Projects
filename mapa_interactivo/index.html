@@ -2,7 +2,7 @@
 <html>
 
 <head>
-    <title>Mapa Interactivo</title>
+    <title>Mapa Interactivo - Christian-Arcos.com - All rights reserved &copy 2020 </title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta charset="utf-8">
     <link href="https://fonts.googleapis.com/css?family=Roboto:400,700" rel="stylesheet">
@@ -37,9 +37,9 @@
             </div>
             <div class="medios"> <span class="input-label">Como:</span>
                 <select id="comoIr">
-                    <option value='Auto'> Auto </option>
-                    <option value='Caminando'> Caminando </option>
-                    <option value='Bus/Subterraneo/Tren'> Transporte Público </option>
+                    <option value='DRIVING'> Auto </option>
+                    <option value='WALKING'> Caminando </option>
+                    <option value='TRANSIT'> Transporte Público </option>
                 </select>
             </div>
             <div class="hide-xs">
@@ -70,6 +70,7 @@
                 </div>
             </div>
             <input type="submit" id="calcularMuchos" value="Calcular Ruta" class="btn btn-outline">
+            <button class="btn btn-outline" id="borrarIntermedios">Borrar Puntos Intermedios</button>
             <button class="btn btn-outline" onclick="mostrarOcultarPano()">Ocultar/Mostrar StreetView</button>
         </div>
         <div class="directions">
@@ -87,7 +88,10 @@
     <script src='js/lugares.js'></script>
     <script src='js/ayuda.js'></script>
     <script src='js/apis.js'></script>
-    <script src="https://maps.googleapis.com/maps/api/js?v=3&key=AIzaSyAodEB3tkLJwpDDm0ww1a03xRSUd4HbwYA&libraries=places&callback=inicializarMapa" async defer></script> 
+    <!-- Modificá "CLAVEAPI" por la clave que hayas obtenido -->
+    <script
+        src="https://maps.googleapis.com/maps/api/js?v=3&key=KEY&libraries=places&callback=inicializarMapa"
+        async defer></script>
 </body>
 
 </html>

@@ -15,8 +15,8 @@ marcadorModulo = (function () {
           map:mapa,
           position:ubicacion,
           draggable:true,
-          title:'Destino ' + ubicacion.name,
-          animation:google.maps.Animation.DROP})
+          title:'Destino',
+          animation:google.maps.Animation.DROP});
   }
 
     // Agrega la dirección del marcador en la lista de Lugares Intermedios

@@ -14,7 +14,7 @@ lugaresModulo = (function () {
         var input4 = document.getElementById('agregar');
         var limitCircle = new google.maps.Circle({
           center: mapa.center,
-          radius: 20000
+          radius: 10000
         });
 
         var options = {

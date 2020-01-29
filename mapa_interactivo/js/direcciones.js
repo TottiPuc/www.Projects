@@ -9,17 +9,19 @@ direccionesModulo = (function () {
     })
 
     document.getElementById('calcularMuchos').addEventListener('click', function () {
-      direccionesModulo.calcularYMostrarRutas()
+      if (document.getElementById('desde').value != '' && document.getElementById('desde').value != '') {
+        direccionesModulo.calcularYMostrarRutas()
+      }
     })
 
-    var listasLugares = document.getElementsByClassName('lugares')
-    for (var j = 0; j < listasLugares.length; j++) {
-      listasLugares[j].addEventListener('change', function () {
-        if (document.getElementById('desde').value != '' && document.getElementById('desde').value != '') {
-          direccionesModulo.calcularYMostrarRutas()
-        }
-      })
-    }
+    document.getElementById('borrarIntermedios').addEventListener('click', function () {
+      direccionesModulo.borrarIntermedios();
+    })
+
+    document.getElementById('borrarIntermedios').addEventListener('click', function () {
+      direccionesModulo.borrarIntermedios();
+    })
+
   }
 
     // Agrega la dirección en las lista de Lugares Intermedios en caso de que no estén
@@ -33,28 +35,28 @@ direccionesModulo = (function () {
       }
     }
     if (haceFaltaAgregar) {
-      var opt = document.createElement('option')
-      opt.value = coord
-      opt.innerHTML = direccion
-      lugaresIntermedios.appendChild(opt)
+      var opt = document.createElement('option');
+      opt.value = coord;
+      opt.innerHTML = direccion;
+      lugaresIntermedios.appendChild(opt);
     }
   }
 
     // Agrega la dirección en las listas de puntos intermedios y lo muestra con el street view
   function agregarDireccionYMostrarEnMapa (direccion, ubicacion) {
-    that = this
-    var ubicacionTexto = ubicacion.lat() + ',' + ubicacion.lng()
-    agregarDireccionEnLista(direccion, ubicacionTexto)
-    mapa.setCenter(ubicacion)
-    streetViewModulo.fijarStreetView(ubicacion)
-    marcadorModulo.mostrarMiMarcador(ubicacion)
+    that = this;
+    var ubicacionTexto = ubicacion.lat() + ',' + ubicacion.lng();
+    agregarDireccionEnLista(direccion, ubicacionTexto);
+    mapa.setCenter(ubicacion);
+    streetViewModulo.fijarStreetView(ubicacion);
+    marcadorModulo.mostrarMiMarcador(ubicacion);
   }
 
   function agregarDireccion (direccion, ubicacion) {
-    that = this
-    var ubicacionTexto = ubicacion.lat() + ',' + ubicacion.lng()
-    agregarDireccionEnLista(direccion, ubicacionTexto)
-    mapa.setCenter(ubicacion)
+    that = this;
+    var ubicacionTexto = ubicacion.lat() + ',' + ubicacion.lng();
+    agregarDireccionEnLista(direccion, ubicacionTexto);
+    mapa.setCenter(ubicacion);
   }
 
     // Inicializo las variables que muestra el panel y el que calcula las rutas//
@@ -80,6 +82,7 @@ direccionesModulo = (function () {
         direccionesModulo.calcularYMostrarRutas()
       }
     })
+
     servicioDirecciones = new google.maps.DirectionsService()
     mostradorDirecciones = new google.maps.DirectionsRenderer({
       draggable: true,
@@ -93,9 +96,44 @@ direccionesModulo = (function () {
     // dependiendo de la formaDeIr que puede ser Caminando, Auto o Bus/Subterraneo/Tren
   function calcularYMostrarRutas () {
 
-        /* Completar la función calcularYMostrarRutas , que dependiendo de la forma en que el
-         usuario quiere ir de un camino al otro, calcula la ruta entre esas dos posiciones
-         y luego muestra la ruta. */
+    var start = document.getElementById('desde').value;
+    var end = document.getElementById('hasta').value;
+    //creo los marcadores
+      marcadorModulo.agregarMarcadorRuta(start,"A",true)
+      marcadorModulo.agregarMarcadorRuta(end,"B",false)
+    //Cargo modo de viaje
+    var modoViaje = $("#comoIr").val();
+      
+    /* Leo los waypoints!  */
+      var waypts = [];
+      var checkboxArray = document.getElementById('puntosIntermedios');
+      for (var i = 0; i < checkboxArray.length; i++) {
+        if (checkboxArray.options[i].selected) {
+          waypts.push({
+            location: checkboxArray[i].value,
+            stopover: true
+          });
+          marcadorModulo.agregarMarcadorRuta(checkboxArray[i].value,"I",false)
+        }
+      }
+      /* Creo el request completo */
+      var DirectionsRequest = {
+        origin: start,
+        destination: end,
+        travelMode: modoViaje,
+        waypoints: waypts,
+        optimizeWaypoints: true
+        };
+
+    servicioDirecciones.route(DirectionsRequest,function(result, status) {
+        if (status == 'OK') {
+          mostradorDirecciones.setDirections(result);
+        }
+      });
+  }
+
+  function borrarIntermedios(){
+    $("#puntosIntermedios").html("");
   }
 
   return {
@@ -103,6 +141,7 @@ direccionesModulo = (function () {
     agregarDireccion,
     agregarDireccionEnLista,
     agregarDireccionYMostrarEnMapa,
-    calcularYMostrarRutas
+    calcularYMostrarRutas,
+    borrarIntermedios
   }
 }())
