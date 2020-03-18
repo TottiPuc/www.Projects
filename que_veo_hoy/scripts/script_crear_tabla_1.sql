@@ -13,4 +13,15 @@ CREATE TABLE `pelicula` (
     `poster` VARCHAR(300) NOT NULL,
     `trama` VARCHAR(700) NOT NULL,
     PRIMARY KEY (`id`)
-)
+);
+
+CREATE TABLE `genero` (
+    `id` int(11) NOT NULL AUTO_INCREMENT,
+    `nombre` VARCHAR(30) NOT NULL,
+    PRIMARY KEY (`id`)
+    
+);
+
+ALTER TABLE pelicula 
+ADD `genero_id` int(11) NOT NULL; 
+

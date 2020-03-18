@@ -15,7 +15,22 @@ function pedirPeliculas(req,res) {
 };
 
 
+function pedirGeneros(req,res) {
+    var sql = "select * from genero"
+    con.query(sql,(error,resultado,fields) =>{
+        if (error) {
+            console.log("Hubo un error en la consulta "+error.message);
+            return res.status(404).send("Hubo un error en la consulta");
+        };
+        var response={
+            'generos' : resultado
+        };
+        res.send(JSON.stringify(response));
+    });
+};
+
 
 module.exports ={
-    pedirPeliculas:pedirPeliculas
+    pedirPeliculas:pedirPeliculas,
+    pedirGeneros:pedirGeneros
 }
