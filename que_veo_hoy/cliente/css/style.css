@@ -19,7 +19,7 @@ body:before {
 	position: relative;
 	margin: auto;
 	top: 40px;
-	background: url(../img/logo_acamica.png);
+	background: url(../img/CHRISTIAN_LOGO.png);
 	background-size: 132px 27px;
 }
 
@@ -592,9 +592,9 @@ img {
 
 .grid-pager .boton-pagina:hover {
 	color: #FFF;
+	background-color: #313A4F;
 }
 
-.grid-pager .boton-pagina:first-child,
 .grid-pager .boton-pagina.active {
 	color: #FFF;
 	background-color: #313A4F;
@@ -829,4 +829,3 @@ img {
 	}
 
 }
-

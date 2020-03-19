@@ -104,8 +104,54 @@ function pedirPeliculaId(req,res) {
 }
 
 
+function pedirRecomendacion(req,res) {
+    var anio_inicio = req.query.anio_inicio;
+    var anio_fin = req.query.anio_fin
+    var genero = req.query.genero
+    var puntuacion = req.query.puntuacion
+
+    var sql = "select * from pelicula join genero on pelicula.genero_id = genero.id"
+
+    if (genero) {
+        sql += " where genero.nombre = '"+ genero + "'" ;
+    }
+
+    if (anio_inicio && sql !== "select * from pelicula join genero on pelicula.genero_id=genero.id") {
+        sql += " and pelicula.anio >" + anio_inicio;
+    }else if (anio_inicio && sql == "select * from pelicula join genero on pelicula.genero_id=genero.id"){
+        sql += " where pelicula.anio >" + anio_inicio;
+    }
+
+    if (anio_fin && sql !== "select * from pelicula join genero on pelicula.genero_id=genero.id") {
+        sql += " and pelicula.anio <" + anio_fin;
+    }else if (anio_fin && sql == "select * from pelicula join genero on pelicula.genero_id=genero.id"){
+        sql += " where pelicula.anio <" + anio_fin;
+    }
+
+    if (puntuacion && sql !== "select * from pelicula join genero on pelicula.genero_id=genero.id") {
+        sql += " and pelicula.puntuacion >" + puntuacion;
+    }else if (puntuacion && sql == "select * from pelicula join genero on pelicula.genero_id=genero.id"){
+        sql += " where pelicula.puntuacion <" + puntuacion;
+    }
+
+    con.query(sql, function(error, resultado, fields) {
+        if (error) {
+            console.log("Hubo un error en la consulta", error.message);
+            return res.status(404).send("Hubo un error en la consulta");
+            }
+        var response = {
+           'peliculas': resultado
+            };
+    
+            res.send(JSON.stringify(response))
+        })
+
+}
+
+
 module.exports ={
     pedirPeliculas:pedirPeliculas,
     pedirGeneros:pedirGeneros,
-    pedirPeliculaId:pedirPeliculaId
+    pedirPeliculaId:pedirPeliculaId,
+    pedirRecomendacion:pedirRecomendacion
 }
