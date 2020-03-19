@@ -25,3 +25,18 @@ CREATE TABLE `genero` (
 ALTER TABLE pelicula 
 ADD `genero_id` int(11) NOT NULL; 
 
+CREATE TABLE `actor` (
+    `id` INT(11) NOT NULL AUTO_INCREMENT,
+    `nombre` VARCHAR(70) NOT NULL,
+    PRIMARY KEY(`id`)
+);
+
+CREATE TABLE `actor_pelicula` (
+    `id` INT(11) NOT NULL AUTO_INCREMENT,
+    `actor_id` INT(11) NOT NULL,
+    `pelicula_id` INT(11) NOT NULL,
+    PRIMARY KEY (`id`),
+    FOREIGN KEY (`actor_id`) REFERENCES `actor` (`id`),
+    FOREIGN KEY (`pelicula_id`) REFERENCES `pelicula` (`id`)
+
+);

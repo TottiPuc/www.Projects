@@ -2,6 +2,7 @@
     var server = 'http://localhost:8080';
     var params = location.search
     //se obtiene el id de la película de la cuál tenemos que obtener la información
+    console.log(params)
     var id = (params.split("="))[1];
 
     var controladorInformacionDePelicula = new ControladorInformacionDePelicula();
@@ -14,7 +15,8 @@
                 
                 pelicula = data.pelicula;
                 actores = data.actores;
-                genero = data.pelicula.nombre;
+                genero = data.pelicula.generoNombre;
+                console.log(genero)
 
                 $(".imagen").attr("src", pelicula.poster);
                 $(".titulo, title").html(pelicula.titulo + " (" + pelicula.anio + ")");
@@ -22,14 +24,16 @@
                 var fecha = new Date(pelicula.fecha_lanzamiento);
                 $(".lanzamiento").html(fecha.getDate() + "/" + (fecha.getMonth() + 1) + "/" + fecha.getUTCFullYear());
                 $(".genero").html(genero);
+                
                 $(".director").html(pelicula.director);
                 $(".duracion").html(pelicula.duracion);
                 $(".rank").html(pelicula.puntuacion + "/10");
-                var actores_string = '';
+                /*var actores_string = '';
                 for (i = 0; i < actores.length; i++) {
                     actores_string += actores[i].nombre + ", "
                 }
-                $(".actores").html(actores_string.slice(0, -2));
+                $(".actores").html(actores_string.slice(0, -2));*/
+                $(".actores").html(actores.replace(/,/g, ", "))
             },
             //esta función recibe como parámetro el id de una película y se encarga de pedirle al backend la información de la misma.
             this.obtenerPelicula = function(id) {

@@ -16,6 +16,7 @@ app.use(bodyParser.json());
 
 app.get('/peliculas',controlador.pedirPeliculas)
 app.get('/generos',controlador.pedirGeneros)
+app.get('/peliculas/:id',controlador.pedirPeliculaId)
 
 //seteamos el puerto en el cual va a escuchar los pedidos la aplicación
 var puerto = '8080';
