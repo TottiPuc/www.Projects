@@ -51,8 +51,35 @@ function votarPelicula(req,res) {
 
 
 
+function obtenerResultados(req,res) {
+    var idCompetencia = req.params.id;
+    var sql = "select competencias.nombre as 'compName', votos.competencia_id, votos.pelicula_id, "+
+               " pelicula.poster, pelicula.titulo, count(*) as 'votos' from pelicula join votos on pelicula.id "+
+               " = votos.pelicula_id join competencias on votos.competencia_id = competencias.id "+
+               " group by votos.pelicula_id having competencia_id = " + idCompetencia +" order by count(*) limit 3"
+    console.log(idCompetencia)
+               con.query(sql,(error,resultado) => {
+        if (error) {
+            console.log("Hubo un error en la consulta " + error);
+            return res.status(404).send("Hubo un error en la consulta");
+        }
+
+        if (resultado.length>0) {
+            var response ={
+                competencia: resultado[0].compName,
+                resultados:resultado
+            }
+        }
+
+        res.send(response)
+    })
+
+
+}
+
 module.exports ={
     traerCompetencias:traerCompetencias,
     traerCompetenciasPeliculas:traerCompetenciasPeliculas,
-    votarPelicula:votarPelicula
+    votarPelicula:votarPelicula,
+    obtenerResultados:obtenerResultados
 }

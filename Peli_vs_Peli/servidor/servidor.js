@@ -18,7 +18,7 @@ app.use(bodyParser.json());
 
 app.get("/competencias", controlador.traerCompetencias)
 app.get("/competencias/:id/peliculas",controlador.traerCompetenciasPeliculas)
-
+app.get("/competencias/:id/resultados",controlador.obtenerResultados)
 
 app.post("/competencias/:idCompetencia/voto", controlador.votarPelicula)
 
