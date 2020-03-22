@@ -36,8 +36,17 @@ function competencia(req, res) {
 }
 
 function traerCompetenciasPeliculas(req,res) {
-    var sql = "select distinct id , titulo, poster  from pelicula order by rand() limit 2;"
-    
+   // var sql = "select distinct id , titulo, poster  from pelicula order by rand() limit 2;"
+    var idCompetencia = req.params.id;
+     var sql = "SELECT DISTINCT pelicula.id AS 'id',tactores.actor_id AS 'actorId',pelicula.genero_id AS 'generoId',tdirectores.director_id AS 'directorId',"
+     +   "pelicula.titulo, pelicula.poster, pelicula.anio,tcompetencias.nombre AS 'nombreCompetencia',tcompetencias.id AS 'idCompetencia',tcompetencias.genero_id AS 'generoCompetencia',tcompetencias.director_id AS 'directorCompetencia',"
+     +   "tcompetencias.actor_id AS 'actorCompetencia' "
+     +   "FROM pelicula "
+     +   "JOIN (SELECT id, genero_id, director_id, actor_id, nombre FROM competencias) AS tcompetencias ON tcompetencias.id = " + idCompetencia
+     +   " JOIN (SELECT director_id, pelicula_id FROM director_pelicula) AS tdirectores ON tdirectores.pelicula_id = pelicula.id "
+     +   "JOIN (SELECT actor_id, pelicula_id FROM actor_pelicula) AS tactores ON tactores.pelicula_id = pelicula.id "
+     +   " group by pelicula.id "
+     +   "ORDER BY RAND() LIMIT 2;"
     con.query(sql,(error,resultado)=>{
         if (error) {
             console.log("Hubo un error en la consulta " + error);
@@ -45,6 +54,7 @@ function traerCompetenciasPeliculas(req,res) {
         }
         if (resultado.length>0) {
             var response ={
+               competencia : resultado[0].nombreCompetencia,
                peliculas: resultado
             }
         }
@@ -59,8 +69,10 @@ function traerCompetenciasPeliculas(req,res) {
 function votarPelicula(req,res) {
     var idCompetencia = req.params.idCompetencia;
     var voto = req.body.idPelicula;
+    console.log(req.body)
 
     var sql = "INSERT INTO `votos` VALUES (NULL," + idCompetencia + "," + voto +");"
+    console.log(sql)
 
     con.query(sql,(error,resultado)=>{
         if (error) {
