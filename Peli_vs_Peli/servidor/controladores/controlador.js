@@ -38,15 +38,16 @@ function competencia(req, res) {
 function traerCompetenciasPeliculas(req,res) {
    // var sql = "select distinct id , titulo, poster  from pelicula order by rand() limit 2;"
     var idCompetencia = req.params.id;
-     var sql = "SELECT DISTINCT pelicula.id AS 'id',tactores.actor_id AS 'actorId',pelicula.genero_id AS 'generoId',tdirectores.director_id AS 'directorId',"
-     +   "pelicula.titulo, pelicula.poster, pelicula.anio,tcompetencias.nombre AS 'nombreCompetencia',tcompetencias.id AS 'idCompetencia',tcompetencias.genero_id AS 'generoCompetencia',tcompetencias.director_id AS 'directorCompetencia',"
-     +   "tcompetencias.actor_id AS 'actorCompetencia' "
-     +   "FROM pelicula "
-     +   "JOIN (SELECT id, genero_id, director_id, actor_id, nombre FROM competencias) AS tcompetencias ON tcompetencias.id = " + idCompetencia
-     +   " JOIN (SELECT director_id, pelicula_id FROM director_pelicula) AS tdirectores ON tdirectores.pelicula_id = pelicula.id "
-     +   "JOIN (SELECT actor_id, pelicula_id FROM actor_pelicula) AS tactores ON tactores.pelicula_id = pelicula.id "
-     +   " group by pelicula.id "
-     +   "ORDER BY RAND() LIMIT 2;"
+     var sql = "SELECT DISTINCT pelicula.genero_string, pelicula.id AS id,tactores.actor_id AS actorId,pelicula.genero_id AS generoId,tdirectores.director_id AS directorId, "+
+                "pelicula.titulo, pelicula.poster, pelicula.anio,tcompetencias.nombre AS nombreCompetencia,tcompetencias.id AS idCompetencia,tcompetencias.genero_id AS generoCompetencia,tcompetencias.director_id AS directorCompetencia, "+
+                " tcompetencias.actor_id AS actorCompetencia  FROM pelicula " + 
+                " JOIN (SELECT id, genero_id, director_id, actor_id, nombre FROM competencias) AS tcompetencias ON tcompetencias.id =  "+ idCompetencia +
+                " JOIN (SELECT director_id, pelicula_id FROM director_pelicula) AS tdirectores ON tdirectores.pelicula_id = pelicula.id  "+
+                " JOIN (SELECT actor_id, pelicula_id FROM actor_pelicula) AS tactores ON tactores.pelicula_id = pelicula.id  "+
+                " WHERE  CASE WHEN (tcompetencias.genero_id = 0) THEN tcompetencias.genero_id = 0 ELSE tcompetencias.genero_id = pelicula.genero_id END  "+
+                " AND CASE WHEN (tcompetencias.director_id = 0) THEN tcompetencias.director_id = 0 ELSE tcompetencias.director_id = tdirectores.director_id END "+
+                " AND CASE WHEN (tcompetencias.actor_id = 0) THEN tcompetencias.actor_id = 0 ELSE tcompetencias.actor_id = tactores.actor_id END " +
+                " group by pelicula.id  ORDER BY RAND() LIMIT 2";
     con.query(sql,(error,resultado)=>{
         if (error) {
             console.log("Hubo un error en la consulta " + error);
@@ -94,7 +95,7 @@ function obtenerResultados(req,res) {
                " pelicula.poster, pelicula.titulo, count(*) as 'votos' from pelicula join votos on pelicula.id "+
                " = votos.pelicula_id join competencias on votos.competencia_id = competencias.id "+
                " group by votos.pelicula_id having competencia_id = " + idCompetencia +" order by count(*) limit 3"
-    console.log(idCompetencia)
+    
                con.query(sql,(error,resultado) => {
         if (error) {
             console.log("Hubo un error en la consulta " + error);
@@ -117,17 +118,42 @@ function obtenerResultados(req,res) {
 
 function crearCompetencia(req,res) {
     var competencia = req.body
-
-    var sql = "INSERT INTO `competencias` VALUES (NULL,'"+ competencia.nombre +"',"+ competencia.genero +","+competencia.director +","+competencia.actor+")";
-
-        con.query(sql,(error,resultado)=>{
-            if (error) {
-                console.log("Hubo un error en la consulta " + error);
-                return res.status(404).send("No pudo crearse la competencia");
-            } 
-            res.send("competencia creada con exito...")  
-        });
     
+    var verificar = "SELECT DISTINCT  pelicula.id AS id,tactores.actor_id AS actorId,pelicula.genero_id AS generoId,tdirectores.director_id AS directorId FROM pelicula "+   
+                     " JOIN (SELECT director_id, pelicula_id FROM director_pelicula) AS tdirectores ON tdirectores.pelicula_id = pelicula.id "+ 
+                     " JOIN (SELECT actor_id, pelicula_id FROM actor_pelicula) AS tactores ON tactores.pelicula_id = pelicula.id  " +
+                     " WHERE  CASE WHEN ( "+ competencia.genero + " = 0) THEN  " + competencia.genero + " = 0 ELSE pelicula.genero_id = " + competencia.genero + " END" +  
+                     " AND CASE WHEN ( "+ competencia.director + " = 0) THEN " + competencia.director + " = 0 ELSE tdirectores.director_id = " + competencia.director + " END" + 
+                     " AND CASE WHEN ( "+ competencia.actor + " = 0) THEN " + competencia.actor + " = 0 ELSE tactores.actor_id = " + competencia.director + " END" +  
+                     " group by pelicula.id  limit 5";
+    
+     /*var verificar = "select * from competencias left outer join genero on competencias.genero_id = genero.id left outer join actor on competencias.actor_id = actor.id "+
+                    " left outer join director on competencias.director_id = director.id where competencias.nombre is not NULL and genero.nombre is not NULL "+
+                    " and actor.nombre is not NULL and director.nombre is not NULL"; */
+
+                    con.query(verificar,(error,resul)=>{
+                        //console.log(resul)
+                        console.log("verificando que existan mas de dos competencias")
+                        if (resul.length>2) {
+                            
+                            var sql = "INSERT INTO `competencias` VALUES (NULL,'"+ competencia.nombre +"',"+ competencia.genero +","+competencia.director +","+competencia.actor+")";   
+                            con.query(sql,(error,resultado)=>{
+                                if (error) {
+                                    console.log("Hubo un error en la consulta " + error);
+                                    return res.status(404).send("No pudo crearse la competencia");
+                                } 
+                                 console.log("creando competenecia")
+                                res.send("competencia creada con exito...")  
+                            });
+
+                        }
+                        else{
+                            console.log("Debe existir por lo menos dos peliculas con los filtros elegidos")
+                            return res.status(422).send("No pudo crearse la competencia, debe existir mas de dos peliculas con los filtros elegidos ");
+                                                    
+                        }
+                    })
+
 }
 
 
