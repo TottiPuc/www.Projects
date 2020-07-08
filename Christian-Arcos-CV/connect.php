@@ -56,15 +56,15 @@
                         <p> Fields marked with * are required</p>
 
                         <div class="form-group row">
-                            <label for="name" class="col-sm-2 form-control-label">* First Name</label>
+                            <label for="name" class="col-sm-2 form-control-label">* Name</label>
                             <div class="col-md-10">
-                            <input id="name" name="name" type="text" placeholder="Write your first name" class="form-control" required="">
+                            <input id="name" name="name" type="text" placeholder="Write your name" class="form-control" required="">
                           </div>
                         </div>
                         <div class="form-group row">
-                          <label for="lname" class="col-sm-2 form-control-label">* Last Name</label>
+                          <label for="lname" class="col-sm-2 form-control-label">* Subject</label>
                           <div class="col-md-10">
-                          <input id="lname" name="name" type="text" placeholder="Write your last name" class="form-control">
+                          <input id="lname" name="subject" type="text" placeholder="Write the subject" class="form-control">
                         </div>
                       </div>
                         <div class="form-group row">
@@ -107,13 +107,13 @@
       <div class="container">
               <!--redes sociales-->
              
-                <div class="footer_area_item text-center">
-                        <a href="./"><img src="images/github.png" alt="github"> </a>
-                        <a href="./"><img src="images/linked.PNG" alt="linkeid"> </a>
-                        <a href="./"><img src="images/youtube.png" alt="youtube"> </a>
-                        <a href="./"><img src="images/blog.PNG" alt="blog"> </a>
-      
-                </div>    
+              <div class="footer_area_item text-center">
+                <a href="https://github.com/TottiPuc"><img src="images/github.png" alt="github"> </a>
+                <a href="https://www.linkedin.com/in/christian-dayan-arcos-gordillo/"><img src="images/linked.PNG" alt="linkeid"> </a>
+                <a href="https://www.youtube.com/channel/UCRlazgx5-5_-1xtP8llRg-A"><img src="images/youtube.png" alt="youtube"> </a>
+                <a href="#"><img src="images/blog.PNG" alt="proximamente"> </a>
+
+        </div>  
                 
             
       </div>
@@ -125,5 +125,8 @@
     <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+    <?php
+    include("datos.php");
+    ?>
   </body>
 </html>
